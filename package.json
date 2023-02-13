@@ -1,0 +1,44 @@
+{
+  "name": "03-api-solid",
+  "version": "1.0.0",
+  "description": "A Node.js API created with SOLID.",
+  "bin": "build/server.js",
+  "pkg": {
+    "scripts": "build/**/*.js",
+    "assets": [
+      "build/**/*"
+    ],
+    "targets": [
+      "node18"
+    ]
+  },
+  "scripts": {
+    "start:dev": "tsx watch src/server.ts",
+    "start": "node build/server.js",
+    "build": "tsup src --out-dir build",
+    "lint": "eslint src --ext .ts --fix",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage"
+  },
+  "author": "Diego Fernandes <diego.schell.f@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/jwt": "6.5.0",
+    "@prisma/client": "4.10.1",
+    "bcrypt": "5.1.0",
+    "dotenv": "16.0.3",
+    "fastify": "4.13.0",
+    "zod": "3.20.6"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "1.2.0",
+    "@types/bcrypt": "5.0.0",
+    "@types/node": "18.13.0",
+    "eslint": "8.33.0",
+    "prisma": "4.10.1",
+    "tsup": "6.6.0",
+    "tsx": "3.12.3",
+    "typescript": "4.9.5",
+    "vitest": "0.28.4"
+  }
+}
