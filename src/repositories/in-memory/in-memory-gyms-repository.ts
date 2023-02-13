@@ -5,7 +5,17 @@ import { GymsRepository } from '../gyms-repository'
 export class InMemoryGymsRepository implements GymsRepository {
   public items: Gym[] = []
 
-  async create(data: Prisma.GymCreateInput) {
+  async findById(id: string) {
+    const gym = this.items.find((item) => item.id === id)
+
+    if (!gym) {
+      return null
+    }
+
+    return gym
+  }
+
+  async create(data: Prisma.GymUncheckedCreateInput) {
     const gym: Gym = {
       ...data,
       id: data.id ?? randomUUID(),
