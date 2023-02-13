@@ -7,12 +7,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  id            String   @id @default(cuid())
+model Member {
+  id            String   @id @default(uuid())
   name          String
   email         String   @unique
   password_hash String
   created_at    DateTime @default(now())
 
-  @@map("accounts")
+  checkIns CheckIn[]
+
+  @@map("members")
+}
+
+model CheckIn {
+  id        String @id @default(uuid())
+  gym_id    String
+  member_id String
+
+  created_at   DateTime  @default(now())
+  validated_at DateTime?
+
+  gym    Gym    @relation(fields: [gym_id], references: [id])
+  member Member @relation(fields: [member_id], references: [id])
+
+  @@map("check_ins")
+}
+
+model Gym {
+  id          String  @id @default(uuid())
+  title       String
+  slug        String  @unique
+  description String?
+  phone       String?
+  latitude    Decimal
+  longitude   Decimal
+
+  checkIns CheckIn[]
+
+  @@map("gyms")
 }

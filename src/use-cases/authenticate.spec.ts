@@ -1,32 +1,32 @@
 import { beforeEach, it, describe, expect } from 'vitest'
 import { hash } from 'bcryptjs'
-import { InMemoryAccountsRepository } from '../repositories/in-memory/in-memory-accounts-repository'
+import { InMemoryMembersRepository } from '@/repositories/in-memory/in-memory-members-repository'
 import { AuthenticateUseCase } from './authenticate'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 
-let inMemoryAccountsRepository: InMemoryAccountsRepository
+let inMemoryMembersRepository: InMemoryMembersRepository
 let authenticateUseCase: AuthenticateUseCase
 
 describe('Authenticate', () => {
   beforeEach(() => {
-    inMemoryAccountsRepository = new InMemoryAccountsRepository()
-    authenticateUseCase = new AuthenticateUseCase(inMemoryAccountsRepository)
+    inMemoryMembersRepository = new InMemoryMembersRepository()
+    authenticateUseCase = new AuthenticateUseCase(inMemoryMembersRepository)
   })
 
   it('should be able to authenticate', async () => {
-    await inMemoryAccountsRepository.create({
+    await inMemoryMembersRepository.create({
       name: 'John Doe',
       email: 'john@example.com',
       password_hash: await hash('123456', 6),
     })
 
-    const { account } = await authenticateUseCase.execute({
+    const { member } = await authenticateUseCase.execute({
       email: 'john@example.com',
       password: '123456',
     })
 
-    expect(account.name).toEqual('John Doe')
-    expect(account.id).toEqual(expect.any(String))
+    expect(member.name).toEqual('John Doe')
+    expect(member.id).toEqual(expect.any(String))
   })
 
   it('should not be able to authenticate with invalid email', async () => {
@@ -39,7 +39,7 @@ describe('Authenticate', () => {
   })
 
   it('should not be able to authenticate with wrong password', async () => {
-    await inMemoryAccountsRepository.create({
+    await inMemoryMembersRepository.create({
       name: 'John Doe',
       email: 'john@example.com',
       password_hash: await hash('123456', 6),
