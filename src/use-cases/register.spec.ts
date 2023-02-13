@@ -2,7 +2,7 @@ import { beforeEach, it, describe, expect } from 'vitest'
 import { compare } from 'bcrypt'
 import { InMemoryAccountsRepository } from '../repositories/in-memory/in-memory-accounts-repository'
 import { RegisterUseCase } from './register'
-import { AccountAlreadyExists } from './errors/account-already-exists'
+import { AccountAlreadyExistsError } from './errors/account-already-exists-error'
 
 let inMemoryAccountsRepository: InMemoryAccountsRepository
 let registerUseCase: RegisterUseCase
@@ -56,6 +56,6 @@ describe('Register', () => {
         email,
         password: '123456',
       })
-    }).rejects.toBeInstanceOf(AccountAlreadyExists)
+    }).rejects.toBeInstanceOf(AccountAlreadyExistsError)
   })
 })

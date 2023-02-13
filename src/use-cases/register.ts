@@ -1,7 +1,7 @@
 import { Account } from '@prisma/client'
 import { hash } from 'bcrypt'
 import { AccountsRepository } from '../repositories/accounts-repository'
-import { AccountAlreadyExists } from './errors/account-already-exists'
+import { AccountAlreadyExistsError } from './errors/account-already-exists-error'
 
 interface RegisterUseCaseRequest {
   name: string
@@ -26,7 +26,7 @@ export class RegisterUseCase {
     )
 
     if (accountWithSameEmail) {
-      throw new AccountAlreadyExists()
+      throw new AccountAlreadyExistsError()
     }
 
     const password_hash = await hash(password, 8)
