@@ -24,4 +24,5 @@
 - [ ] The user cannot check-in twice in the same day;
 - [ ] The user cannot check-in if not nearby (100m radius) the gym;
 - [ ] The check-in can only be validated for 20 minutes after created;
+- [ ] The check-in can only be validate by admin users;
 - [ ] The gym can only be created by admin users;

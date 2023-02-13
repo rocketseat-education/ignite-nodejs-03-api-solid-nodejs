@@ -15,16 +15,16 @@ export async function authenticate(
 
   const authenticate = makeAuthenticateUseCase()
 
-  const { account } = await authenticate.execute({
+  const { member } = await authenticate.execute({
     email,
     password,
   })
 
   const token = reply.jwtSign(
-    { email: account.email },
+    { email: member.email },
     {
       sign: {
-        sub: account.id,
+        sub: member.id,
       },
     },
   )
