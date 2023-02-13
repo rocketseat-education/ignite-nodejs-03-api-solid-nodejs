@@ -1,5 +1,5 @@
 import { Account } from '@prisma/client'
-import { hash } from 'bcrypt'
+import { hash } from 'bcryptjs'
 import { AccountsRepository } from '../repositories/accounts-repository'
 import { AccountAlreadyExistsError } from './errors/account-already-exists-error'
 

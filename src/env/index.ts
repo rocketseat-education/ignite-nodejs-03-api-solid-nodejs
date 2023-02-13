@@ -2,11 +2,17 @@ import 'dotenv/config'
 import { z } from 'zod'
 
 const envSchema = z.object({
+  // Node.js
   NODE_ENV: z
     .enum(['DEVELOPMENT', 'TEST', 'PRODUCTION'])
     .default('DEVELOPMENT'),
-  DATABASE_URL: z.string().startsWith('postgresql://'),
   PORT: z.coerce.number().default(3333),
+
+  // Auth
+  JWT_SECRET: z.string(),
+
+  // Database
+  DATABASE_URL: z.string().startsWith('postgresql://'),
 })
 
 const _env = envSchema.safeParse(process.env)

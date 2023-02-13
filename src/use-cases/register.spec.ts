@@ -1,5 +1,5 @@
 import { beforeEach, it, describe, expect } from 'vitest'
-import { compare } from 'bcrypt'
+import { compare } from 'bcryptjs'
 import { InMemoryAccountsRepository } from '../repositories/in-memory/in-memory-accounts-repository'
 import { RegisterUseCase } from './register'
 import { AccountAlreadyExistsError } from './errors/account-already-exists-error'

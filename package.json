@@ -25,14 +25,14 @@
   "dependencies": {
     "@fastify/jwt": "6.5.0",
     "@prisma/client": "4.10.1",
-    "bcrypt": "5.1.0",
+    "bcryptjs": "2.4.3",
     "dotenv": "16.0.3",
     "fastify": "4.13.0",
     "zod": "3.20.6"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "1.2.0",
-    "@types/bcrypt": "5.0.0",
+    "@types/bcryptjs": "2.4.2",
     "@types/node": "18.13.0",
     "eslint": "8.33.0",
     "prisma": "4.10.1",
