@@ -24,6 +24,9 @@
     "test:coverage": "vitest --coverage",
     "test:ui": "vitest --ui --dir src"
   },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
+  },
   "author": "Diego Fernandes <diego.schell.f@gmail.com>",
   "license": "MIT",
   "dependencies": {

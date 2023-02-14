@@ -34,7 +34,7 @@ describe('Fetch Nearby Gyms', () => {
     expect(gyms).toHaveLength(1)
     expect(gyms).toEqual([
       expect.objectContaining({
-        id: 'gym-id',
+        id: 'gym-1',
       }),
     ])
   })

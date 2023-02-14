@@ -27,7 +27,7 @@ export class RegisterUseCase {
       throw new MemberAlreadyExistsError()
     }
 
-    const password_hash = await hash(password, 8)
+    const password_hash = await hash(password, 6)
 
     const member = await this.membersRepository.create({
       name,

@@ -14,7 +14,9 @@ describe('Validate Check-in (e2e)', () => {
   })
 
   it('should be able to validate the check-in', async () => {
-    const member = await makeMember()
+    const member = await makeMember({
+      role: 'ADMIN',
+    })
 
     const gym = await prisma.gym.create({
       data: {

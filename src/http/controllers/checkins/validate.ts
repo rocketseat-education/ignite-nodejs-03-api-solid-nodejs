@@ -13,6 +13,7 @@ export async function validate(request: FastifyRequest, reply: FastifyReply) {
 
   await validateCheckIn.execute({
     checkInId,
+    memberId: request.user.sub,
   })
 
   return reply.status(204).send()

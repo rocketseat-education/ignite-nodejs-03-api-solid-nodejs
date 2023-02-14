@@ -13,7 +13,9 @@ describe('Create Gym (e2e)', () => {
   })
 
   it('should be able to create a gym', async () => {
-    const member = await makeMember()
+    const member = await makeMember({
+      role: 'ADMIN',
+    })
 
     const response = await request(app.server)
       .post('/gyms')
