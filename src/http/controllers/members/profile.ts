@@ -1,9 +1,14 @@
+import { makeGetMemberProfileUseCase } from '@/factories/makeGetMemberProfileUseCase'
 import type { FastifyRequest, FastifyReply } from 'fastify'
 
 export async function profile(request: FastifyRequest, reply: FastifyReply) {
-  // const user = request.user
+  const getMemberProfile = makeGetMemberProfileUseCase()
 
-  // call use case
+  const profile = await getMemberProfile.execute({
+    memberId: request.user.sub,
+  })
 
-  return reply.status(200).send()
+  return reply.status(200).send({
+    profile,
+  })
 }

@@ -3,6 +3,20 @@ import { prisma } from '@/lib/prisma'
 import { MembersRepository } from '../members-repository'
 
 export class PrismaMembersRepository implements MembersRepository {
+  async findById(id: string) {
+    const member = await prisma.member.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!member) {
+      return null
+    }
+
+    return member
+  }
+
   async findByEmail(email: string) {
     const member = await prisma.member.findUnique({
       where: {

@@ -17,7 +17,7 @@ app.register(jwt, {
 })
 
 app.setErrorHandler(function (error, _, reply) {
-  if (env.NODE_ENV === 'dev') {
+  if (env.NODE_ENV !== 'production') {
     console.error(error)
   } else {
     // Here we should log to an external service like DataDog/NewRelic/Sentry
