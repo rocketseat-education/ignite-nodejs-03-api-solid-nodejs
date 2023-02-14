@@ -1,3 +1,4 @@
+import { verifyJWTHook } from '@/http/hooks/verify-jwt-hook'
 import { FastifyInstance } from 'fastify'
 import { authenticate } from './authenticate'
 import { profile } from './profile'
@@ -8,5 +9,5 @@ export function membersRoutes(app: FastifyInstance) {
   app.post('/sessions', authenticate)
 
   // Authenticated
-  app.get('/me', profile)
+  app.get('/me', { onRequest: [verifyJWTHook] }, profile)
 }

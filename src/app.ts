@@ -1,9 +1,10 @@
 import fastify from 'fastify'
 import jwt from '@fastify/jwt'
-import { membersRoutes } from './controllers/members/routes'
 import { env } from './env'
-import { checkInsRoutes } from './controllers/checkins/routes'
-import { gymsRoutes } from './controllers/gyms/routes'
+
+import { membersRoutes } from './http/controllers/members/routes'
+import { checkInsRoutes } from './http/controllers/checkins/routes'
+import { gymsRoutes } from './http/controllers/gyms/routes'
 
 export const app = fastify()
 
