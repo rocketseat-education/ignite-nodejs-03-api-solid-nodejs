@@ -1,3 +1,5 @@
+import { prisma } from '@/lib/prisma'
+import dayjs from 'dayjs'
 import { CheckIn, Prisma } from '@prisma/client'
 import {
   CheckInsRepository,
@@ -5,30 +7,82 @@ import {
 } from '../checkins-repository'
 
 export class PrismaCheckInsRepository implements CheckInsRepository {
-  findById(id: string): Promise<CheckIn | null> {
-    throw new Error('Method not implemented.')
+  async findById(id: string) {
+    const checkIn = await prisma.checkIn.findUnique({
+      where: {
+        id,
+      },
+    })
+
+    if (!checkIn) {
+      return null
+    }
+
+    return checkIn
   }
 
-  findManyByMemberId(
+  async findManyByMemberId(
     memberId: string,
-    params: FindManyByMemberIdParams,
-  ): Promise<CheckIn[]> {
-    throw new Error('Method not implemented.')
+    { page }: FindManyByMemberIdParams,
+  ) {
+    const checkIns = await prisma.checkIn.findMany({
+      where: {
+        member_id: memberId,
+      },
+      take: 20,
+      skip: (page - 1) * 20,
+    })
+
+    return checkIns
   }
 
-  findByMemberIdOnDate(memberId: string, date: Date): Promise<CheckIn | null> {
-    throw new Error('Method not implemented.')
+  async findByMemberIdOnDate(memberId: string, date: Date) {
+    const startOfTheDay = dayjs(date).startOf('date')
+    const endOfTheDay = dayjs(date).endOf('date')
+
+    const checkIn = await prisma.checkIn.findFirst({
+      where: {
+        member_id: memberId,
+        created_at: {
+          gte: startOfTheDay.toDate(),
+          lte: endOfTheDay.toDate(),
+        },
+      },
+    })
+
+    if (!checkIn) {
+      return null
+    }
+
+    return checkIn
   }
 
-  create(data: Prisma.CheckInUncheckedCreateInput): Promise<CheckIn> {
-    throw new Error('Method not implemented.')
+  async create(data: Prisma.CheckInUncheckedCreateInput) {
+    const checkIn = await prisma.checkIn.create({
+      data,
+    })
+
+    return checkIn
   }
 
-  save(data: CheckIn): Promise<CheckIn> {
-    throw new Error('Method not implemented.')
+  async save(data: CheckIn) {
+    const checkIn = await prisma.checkIn.update({
+      where: {
+        id: data.id,
+      },
+      data,
+    })
+
+    return checkIn
   }
 
-  countByMemberId(memberId: string): Promise<number> {
-    throw new Error('Method not implemented.')
+  async countByMemberId(memberId: string) {
+    const count = await prisma.checkIn.count({
+      where: {
+        member_id: memberId,
+      },
+    })
+
+    return count
   }
 }

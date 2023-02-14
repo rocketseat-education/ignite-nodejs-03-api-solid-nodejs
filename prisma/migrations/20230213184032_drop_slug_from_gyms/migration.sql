@@ -9,3 +9,4 @@ DROP INDEX "gyms_slug_key";
 
 -- AlterTable
 ALTER TABLE "gyms" DROP COLUMN "slug";
+

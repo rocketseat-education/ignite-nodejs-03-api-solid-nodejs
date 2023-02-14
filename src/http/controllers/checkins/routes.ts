@@ -1,6 +1,6 @@
 import { verifyJWTHook } from '@/http/hooks/verify-jwt-hook'
 import { FastifyInstance } from 'fastify'
-import { checkin } from './checkin'
+import { checkIn } from './checkin'
 import { history } from './history'
 import { metrics } from './metrics'
 import { validate } from './validate'
@@ -8,7 +8,7 @@ import { validate } from './validate'
 export async function checkInsRoutes(app: FastifyInstance) {
   app.addHook('onRequest', verifyJWTHook)
 
-  app.post('/gyms/:gymId/checkin', checkin)
+  app.post('/gyms/:gymId/checkin', checkIn)
   app.get('/history', history)
   app.get('/members/:memberId/metrics', metrics)
 

@@ -1,7 +1,7 @@
 import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { prisma } from '@/lib/prisma'
+import { makeMember } from '@/test/factories/make-member'
 
 describe('Profile (e2e)', () => {
   beforeAll(async () => {
@@ -13,13 +13,7 @@ describe('Profile (e2e)', () => {
   })
 
   it('should be able to get the profile', async () => {
-    const member = await prisma.member.create({
-      data: {
-        name: 'John Doe',
-        email: 'john@example.com',
-        password_hash: 'some_hash',
-      },
-    })
+    const member = await makeMember()
 
     const response = await request(app.server)
       .get('/me')
