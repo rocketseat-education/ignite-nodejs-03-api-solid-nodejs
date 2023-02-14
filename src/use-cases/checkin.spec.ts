@@ -1,8 +1,9 @@
-import { beforeEach, it, describe, expect } from 'vitest'
+import { beforeEach, it, describe, expect, vi, afterEach } from 'vitest'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-checkins-repository'
 import { CheckInUseCase } from './checkin'
 import { InvalidDistanceError } from './errors/invalid-distance-error'
+import { SameDayCheckInError } from './errors/same-day-checkin-error'
 
 let inMemoryCheckInsRepository: InMemoryCheckInsRepository
 let inMemoryGymsRepository: InMemoryGymsRepository
@@ -17,6 +18,12 @@ describe('Check In', () => {
       inMemoryGymsRepository,
       inMemoryCheckInsRepository,
     )
+
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
   })
 
   it('should be able to check-in', async () => {
@@ -37,7 +44,7 @@ describe('Check In', () => {
     expect(checkIn.id).toEqual(expect.any(String))
   })
 
-  it('should be able to check-in', async () => {
+  it('should not be able to check-in on distant gym', async () => {
     await inMemoryGymsRepository.create({
       id: 'gym-id',
       title: 'My Gym',
@@ -53,5 +60,30 @@ describe('Check In', () => {
         longitude: -49.6401092,
       }),
     ).rejects.toBeInstanceOf(InvalidDistanceError)
+  })
+
+  it.only('should not be able to check-in twice on same day', async () => {
+    vi.setSystemTime(new Date(2023, 0, 1, 12))
+
+    await inMemoryGymsRepository.create({
+      id: 'gym-id',
+      title: 'My Gym',
+      latitude: -27.2092052,
+      longitude: -49.6401092,
+    })
+
+    await inMemoryCheckInsRepository.create({
+      gym_id: 'gym-id',
+      member_id: 'member-id',
+    })
+
+    expect(
+      checkInUseCase.execute({
+        gymId: 'gym-id',
+        memberId: 'member-id',
+        latitude: -27.2092052,
+        longitude: -49.6401092,
+      }),
+    ).rejects.toBeInstanceOf(SameDayCheckInError)
   })
 })

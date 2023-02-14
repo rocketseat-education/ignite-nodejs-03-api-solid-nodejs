@@ -4,6 +4,7 @@ import { GymsRepository } from '@/repositories/gyms-repository'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 import { getDistanceBetweenCoordinates } from '@/utils/get-distance-between-coordinates'
 import { InvalidDistanceError } from './errors/invalid-distance-error'
+import { SameDayCheckInError } from './errors/same-day-checkin-error'
 
 interface CheckInUseCaseRequest {
   gymId: string
@@ -46,6 +47,15 @@ export class CheckInUseCase {
 
     if (distance > MAX_DISTANCE) {
       throw new InvalidDistanceError()
+    }
+
+    const checkInOnSameDay = await this.checkInsRepository.findByMemberIdOnDate(
+      memberId,
+      new Date(),
+    )
+
+    if (checkInOnSameDay) {
+      throw new SameDayCheckInError()
     }
 
     const checkIn = await this.checkInsRepository.create({
