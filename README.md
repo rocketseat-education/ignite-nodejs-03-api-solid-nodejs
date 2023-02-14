@@ -16,7 +16,7 @@
 - [x] The user password must be hashed;
 - [ ] The user must be identified by a JWT (JSON Web Token);
 - [x] The data will be persisted on PostgreSQL;
-- [ ] All lists should be paginated with default 20 items per page;
+- [x] All lists should be paginated with default 20 items per page;
 
 # RNs
 

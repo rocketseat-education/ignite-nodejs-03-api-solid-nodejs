@@ -28,12 +28,39 @@ describe('Search Gyms', () => {
 
     const { gyms } = await searchGymsUseCase.execute({
       title: 'JSON',
+      page: 1,
     })
 
     expect(gyms).toHaveLength(1)
     expect(gyms).toEqual([
       expect.objectContaining({
         id: 'gym-id',
+      }),
+    ])
+  })
+
+  it('should be able to fetch paginated search for gyms', async () => {
+    for (let i = 1; i <= 22; i++) {
+      await inMemoryGymsRepository.create({
+        id: `gym-${i}`,
+        title: 'The JSON Body',
+        latitude: -27.2092052,
+        longitude: -49.6401092,
+      })
+    }
+
+    const { gyms } = await searchGymsUseCase.execute({
+      title: 'JSON',
+      page: 2,
+    })
+
+    expect(gyms).toHaveLength(2)
+    expect(gyms).toEqual([
+      expect.objectContaining({
+        id: 'gym-21',
+      }),
+      expect.objectContaining({
+        id: 'gym-22',
       }),
     ])
   })
