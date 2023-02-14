@@ -10,7 +10,7 @@ const envSchema = z.object({
   JWT_SECRET: z.string(),
 
   // Database
-  DATABASE_URL: z.string().startsWith('postgresql://'),
+  DATABASE_URL: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)
