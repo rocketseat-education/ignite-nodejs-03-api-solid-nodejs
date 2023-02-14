@@ -1,3 +1,13 @@
+FROM node:18-alpine3.16 AS migration
+ARG DATABASE_URL
+ENV DATABASE_URL $DATABASE_URL
+ENV NODE_ENV production
+ENV npm_config_yes true
+WORKDIR /var/app
+RUN mkdir src
+COPY prisma prisma/
+CMD npx prisma migrate deploy
+
 FROM node:18-alpine3.16 AS dependencies
 WORKDIR /var/app
 COPY package.json package-lock.json tsconfig.json ./
@@ -17,6 +27,8 @@ COPY package.json package-lock.json ./
 RUN npm ci
 
 FROM node:18-alpine3.16 AS package
+ARG DATABASE_URL
+ENV DATABASE_URL $DATABASE_URL
 ENV NODE_ENV production
 WORKDIR /var/app
 RUN mkdir src
@@ -31,6 +43,8 @@ RUN npx pkg@5.8.0 . -o api
 RUN chmod -v +x /var/app/api
 
 FROM node:18-alpine3.16 AS runtime
+ARG DATABASE_URL
+ENV DATABASE_URL $DATABASE_URL
 ENV NODE_ENV production
 WORKDIR /var/app
 USER node
