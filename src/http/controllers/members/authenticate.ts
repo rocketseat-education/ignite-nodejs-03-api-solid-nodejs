@@ -20,7 +20,7 @@ export async function authenticate(
     password,
   })
 
-  const token = reply.jwtSign(
+  const token = await reply.jwtSign(
     { email: member.email },
     {
       sign: {
