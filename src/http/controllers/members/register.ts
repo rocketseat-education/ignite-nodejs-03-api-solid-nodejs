@@ -1,6 +1,6 @@
 import type { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
-import { makeRegisterUseCase } from '@/factories/makeRegisterUseCase'
+import { makeRegisterUseCase } from '@/use-cases/factories/makeRegisterUseCase'
 import { MemberAlreadyExistsError } from '@/use-cases/errors/member-already-exists-error'
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
