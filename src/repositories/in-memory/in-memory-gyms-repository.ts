@@ -1,6 +1,6 @@
 import { Prisma, Gym } from '@prisma/client'
 import { randomUUID } from 'crypto'
-import { GymsRepository } from '../gyms-repository'
+import { FindManyNearbyParams, GymsRepository } from '../gyms-repository'
 
 export class InMemoryGymsRepository implements GymsRepository {
   public items: Gym[] = []
@@ -13,6 +13,10 @@ export class InMemoryGymsRepository implements GymsRepository {
     }
 
     return gym
+  }
+
+  async findManyNearby(params: FindManyNearbyParams) {
+    return this.items
   }
 
   async create(data: Prisma.GymUncheckedCreateInput) {
