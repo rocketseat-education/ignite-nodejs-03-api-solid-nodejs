@@ -15,8 +15,15 @@ describe('Fetch Nearby Gyms', () => {
     await inMemoryGymsRepository.create({
       id: 'gym-id',
       title: 'My Gym',
-      latitude: -27.2092052,
-      longitude: -49.6401092,
+      latitude: -27.20912595706693,
+      longitude: -49.63849005963418,
+    })
+
+    await inMemoryGymsRepository.create({
+      id: 'gym-id',
+      title: 'My Gym',
+      latitude: -27.061262105200647,
+      longitude: -49.53081478632995,
     })
 
     const { gyms } = await fetchNearbyGymsUseCase.execute({
