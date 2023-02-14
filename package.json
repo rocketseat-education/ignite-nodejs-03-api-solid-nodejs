@@ -20,10 +20,10 @@
     "start": "node build/server.js",
     "build": "tsup src --out-dir build",
     "lint": "eslint src --ext .ts --fix",
-    "preinstall": "cd prisma/vitest-environment-prisma && npm link",
-    "postinstall": "npm link vitest-environment-prisma",
+    "test:create-prisma-environment": "cd prisma/vitest-environment-prisma && npm link",
+    "test:setup-prisma-environment": "npm link vitest-environment-prisma",
     "test:unit": "vitest --dir src/use-cases",
-    "test:e2e": "vitest --dir src/http",
+    "test:e2e": "npm run test:create-prisma-environment && npm run test:setup-prisma-environment && vitest --dir src/http",
     "test:coverage": "vitest --coverage",
     "test:ui": "vitest --ui --dir src"
   },
