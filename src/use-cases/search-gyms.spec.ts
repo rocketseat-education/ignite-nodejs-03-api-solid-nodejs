@@ -1,27 +1,33 @@
 import { beforeEach, it, describe, expect } from 'vitest'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
-import { FetchNearbyGymsUseCase } from './fetch-nearby-gyms'
+import { SearchGymsUseCase } from './search-gyms'
 
 let inMemoryGymsRepository: InMemoryGymsRepository
-let fetchNearbyGymsUseCase: FetchNearbyGymsUseCase
+let searchGymsUseCase: SearchGymsUseCase
 
-describe('Fetch Nearby Gyms', () => {
+describe('Search Gyms', () => {
   beforeEach(() => {
     inMemoryGymsRepository = new InMemoryGymsRepository()
-    fetchNearbyGymsUseCase = new FetchNearbyGymsUseCase(inMemoryGymsRepository)
+    searchGymsUseCase = new SearchGymsUseCase(inMemoryGymsRepository)
   })
 
-  it('should be able to fetch nearby gyms', async () => {
+  it('should be able to search for gyms', async () => {
     await inMemoryGymsRepository.create({
       id: 'gym-id',
-      title: 'My Gym',
+      title: 'The JSON Body',
       latitude: -27.2092052,
       longitude: -49.6401092,
     })
 
-    const { gyms } = await fetchNearbyGymsUseCase.execute({
+    await inMemoryGymsRepository.create({
+      id: 'gym-id',
+      title: 'Another Gym',
       latitude: -27.2092052,
       longitude: -49.6401092,
+    })
+
+    const { gyms } = await searchGymsUseCase.execute({
+      title: 'JSON',
     })
 
     expect(gyms).toHaveLength(1)

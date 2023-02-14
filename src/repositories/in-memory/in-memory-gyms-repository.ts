@@ -19,6 +19,10 @@ export class InMemoryGymsRepository implements GymsRepository {
     return this.items
   }
 
+  async searchManyByTitle(title: string) {
+    return this.items.filter((item) => item.title.includes(title))
+  }
+
   async create(data: Prisma.GymUncheckedCreateInput) {
     const gym: Gym = {
       ...data,
