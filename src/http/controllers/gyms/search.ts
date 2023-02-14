@@ -1,4 +1,4 @@
-import { makeSearchGymsUseCase } from '@/use-cases/factories/makeSearchGymsUseCase'
+import { makeSearchGymsUseCase } from '@/use-cases/factories/make-search-gyms-use-case'
 import type { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 

@@ -27,7 +27,7 @@ describe('Search Gyms', () => {
     })
 
     const { gyms } = await searchGymsUseCase.execute({
-      title: 'JSON',
+      query: 'JSON',
       page: 1,
     })
 
@@ -50,7 +50,7 @@ describe('Search Gyms', () => {
     }
 
     const { gyms } = await searchGymsUseCase.execute({
-      title: 'JSON',
+      query: 'JSON',
       page: 2,
     })
 

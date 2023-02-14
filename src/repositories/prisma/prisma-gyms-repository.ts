@@ -22,6 +22,8 @@ export class PrismaGymsRepository implements GymsRepository {
   }
 
   findManyNearby(params: FindManyNearbyParams): Promise<Gym[]> {
+    // TODO: Implement this with haversine
+
     throw new Error('Method not implemented.')
   }
 

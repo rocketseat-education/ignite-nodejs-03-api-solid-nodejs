@@ -1,4 +1,4 @@
-import { makeCreateGymUseCase } from '@/use-cases/factories/makeCreateGymUseCase'
+import { makeCreateGymUseCase } from '@/use-cases/factories/make-create-gym-use-case'
 import type { FastifyRequest, FastifyReply } from 'fastify'
 import { z } from 'zod'
 
