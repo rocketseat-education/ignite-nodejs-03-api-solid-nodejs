@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A Node.js API created with SOLID.",
   "bin": "build/server.js",
+  "engines": {
+    "node": "18"
+  },
   "pkg": {
     "scripts": "build/**/*.js",
     "assets": [
