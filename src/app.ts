@@ -5,6 +5,7 @@ import { env } from './env'
 import { membersRoutes } from './http/controllers/members/routes'
 import { checkInsRoutes } from './http/controllers/checkins/routes'
 import { gymsRoutes } from './http/controllers/gyms/routes'
+import { ZodError } from 'zod'
 
 export const app = fastify()
 
@@ -17,6 +18,12 @@ app.register(jwt, {
 })
 
 app.setErrorHandler(function (error, _, reply) {
+  if (error instanceof ZodError) {
+    return reply
+      .status(400)
+      .send({ message: 'Validation Error', issues: error.format() })
+  }
+
   if (env.NODE_ENV !== 'production') {
     console.error(error)
   } else {
