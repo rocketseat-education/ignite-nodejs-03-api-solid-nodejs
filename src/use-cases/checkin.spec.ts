@@ -62,7 +62,7 @@ describe('Check In', () => {
     ).rejects.toBeInstanceOf(InvalidDistanceError)
   })
 
-  it.only('should not be able to check-in twice on same day', async () => {
+  it('should not be able to check-in twice on same day', async () => {
     vi.setSystemTime(new Date(2023, 0, 1, 12))
 
     await inMemoryGymsRepository.create({
