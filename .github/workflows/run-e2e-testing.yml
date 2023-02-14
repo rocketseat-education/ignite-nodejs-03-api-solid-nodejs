@@ -1,0 +1,41 @@
+name: Unit Tests
+
+on: [push]
+
+jobs:
+  run-ci:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: docker
+          POSTGRES_DB: app
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Run Tests
+        run: npm run test:e2e
+        env:
+          JWT_SECRET: "testing-secret"
+          DATABASE_URL: "postgresql://postgres:docker@localhost:5432/app?schema=public"
