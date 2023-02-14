@@ -8,6 +8,16 @@ import {
 export class InMemoryCheckInsRepository implements CheckInsRepository {
   public items: CheckIn[] = []
 
+  async findById(id: string) {
+    const checkIn = this.items.find((item) => item.id === id)
+
+    if (!checkIn) {
+      return null
+    }
+
+    return checkIn
+  }
+
   async findManyByMemberId(
     memberId: string,
     { page }: FindManyByMemberIdParams,
@@ -36,6 +46,16 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
     }
 
     this.items.push(checkIn)
+
+    return checkIn
+  }
+
+  async save(checkIn: CheckIn) {
+    const checkInIndex = this.items.findIndex((item) => item.id === checkIn.id)
+
+    if (checkInIndex >= 0) {
+      this.items[checkInIndex] = checkIn
+    }
 
     return checkIn
   }
