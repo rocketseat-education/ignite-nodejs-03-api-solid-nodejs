@@ -15,3 +15,13 @@ app.register(gymsRoutes)
 app.register(jwt, {
   secret: env.JWT_SECRET,
 })
+
+app.setErrorHandler(function (error, _, reply) {
+  if (env.NODE_ENV === 'dev') {
+    console.error(error)
+  } else {
+    // Here we should log to an external service like DataDog/NewRelic/Sentry
+  }
+
+  return reply.status(500).send({ message: 'Internal Server Error' })
+})
