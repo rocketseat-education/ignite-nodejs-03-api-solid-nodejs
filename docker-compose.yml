@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres
+    container_name: database
+    restart: always
+    ports: 
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=ignitenode03
+    volumes:
+      - pgdata:/data/postgres
+
+volumes:
+  pgdata:
+    driver: local
