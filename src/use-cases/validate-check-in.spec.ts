@@ -1,15 +1,25 @@
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
-import { expect, describe, it, beforeEach, afterEach, vi } from 'vitest'
+import {
+  expect,
+  describe,
+  it,
+  beforeEach,
+  afterEach,
+  TestContext,
+  vi,
+} from 'vitest'
 import { ValidateCheckInUseCase } from './validate-check-in'
 
-let checkInsRepository: InMemoryCheckInsRepository
-let sut: ValidateCheckInUseCase
+interface contextProps extends TestContext {
+  checkInsRepository: InMemoryCheckInsRepository
+  sut: ValidateCheckInUseCase
+}
 
 describe('Validate Check-in Use Case', () => {
-  beforeEach(async () => {
-    checkInsRepository = new InMemoryCheckInsRepository()
-    sut = new ValidateCheckInUseCase(checkInsRepository)
+  beforeEach(async (context: contextProps) => {
+    context.checkInsRepository = new InMemoryCheckInsRepository()
+    context.sut = new ValidateCheckInUseCase(context.checkInsRepository)
 
     vi.useFakeTimers()
   })
@@ -18,7 +28,10 @@ describe('Validate Check-in Use Case', () => {
     vi.useRealTimers()
   })
 
-  it('should be able to validate the check-in', async () => {
+  it('should be able to validate the check-in', async ({
+    checkInsRepository,
+    sut,
+  }: contextProps) => {
     const createdCheckIn = await checkInsRepository.create({
       gym_id: 'gym-01',
       user_id: 'user-01',
@@ -32,7 +45,9 @@ describe('Validate Check-in Use Case', () => {
     expect(checkInsRepository.items[0].validated_at).toEqual(expect.any(Date))
   })
 
-  it('should not be able to validate an inexistent check-in', async () => {
+  it('should not be able to validate an inexistent check-in', async ({
+    sut,
+  }: contextProps) => {
     await expect(() =>
       sut.execute({
         checkInId: 'inexistent-check-in-id',
@@ -40,7 +55,10 @@ describe('Validate Check-in Use Case', () => {
     ).rejects.toBeInstanceOf(ResourceNotFoundError)
   })
 
-  it('should not be able to validate the check-in after 20 minutes of its creation', async () => {
+  it('should not be able to validate the check-in after 20 minutes of its creation', async ({
+    checkInsRepository,
+    sut,
+  }: contextProps) => {
     vi.setSystemTime(new Date(2023, 0, 1, 13, 40))
 
     const createdCheckIn = await checkInsRepository.create({
