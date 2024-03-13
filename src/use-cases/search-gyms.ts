@@ -1,5 +1,5 @@
 import { GymsRepository } from '@/repositories/gyms-repository'
-import { Gym } from '@prisma/client'
+import { Gym } from '@/lib/drizzle/schema'
 
 interface SearchGymsUseCaseRequest {
   query: string

@@ -2,7 +2,8 @@ import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/drizzle/connection'
+import { checkIns, gyms } from '@/lib/drizzle/schema'
 
 describe('Validate Check-in (e2e)', () => {
   beforeAll(async () => {
@@ -16,22 +17,25 @@ describe('Validate Check-in (e2e)', () => {
   it('should be able to validate a check-in', async () => {
     const { token } = await createAndAuthenticateUser(app, true)
 
-    const user = await prisma.user.findFirstOrThrow()
+    const user = await db.query.users.findFirst()
 
-    const gym = await prisma.gym.create({
-      data: {
+    if (!user) {
+      throw new Error('User not found')
+    }
+
+    const [gym] = await db
+      .insert(gyms)
+      .values({
         title: 'JavaScript Gym',
         latitude: -27.2092052,
         longitude: -49.6401091,
-      },
-    })
+      })
+      .returning()
 
-    let checkIn = await prisma.checkIn.create({
-      data: {
-        gym_id: gym.id,
-        user_id: user.id,
-      },
-    })
+    const [checkIn] = await db
+      .insert(checkIns)
+      .values({ gym_id: gym.id, user_id: user.id })
+      .returning()
 
     const response = await request(app.server)
       .patch(`/check-ins/${checkIn.id}/validate`)
@@ -40,12 +44,12 @@ describe('Validate Check-in (e2e)', () => {
 
     expect(response.statusCode).toEqual(204)
 
-    checkIn = await prisma.checkIn.findUniqueOrThrow({
-      where: {
-        id: checkIn.id,
+    const checkInDB = await db.query.checkIns.findFirst({
+      where: (fields, { eq }) => {
+        return eq(fields.id, checkIn.id)
       },
     })
 
-    expect(checkIn.validated_at).toEqual(expect.any(Date))
+    expect(checkInDB?.validated_at).toEqual(expect.any(Date))
   })
 })

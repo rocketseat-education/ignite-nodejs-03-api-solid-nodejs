@@ -1,8 +1,8 @@
-import { PrismaCheckInsRepository } from '@/repositories/prisma/prisma-check-ins-repository'
+import { DrizzleCheckInsRepository } from '@/repositories/drizzle/drizzle-check-ins-repository'
 import { ValidateCheckInUseCase } from '../validate-check-in'
 
 export function makeValidateCheckInUseCase() {
-  const checkInsRepository = new PrismaCheckInsRepository()
+  const checkInsRepository = new DrizzleCheckInsRepository()
   const useCase = new ValidateCheckInUseCase(checkInsRepository)
 
   return useCase

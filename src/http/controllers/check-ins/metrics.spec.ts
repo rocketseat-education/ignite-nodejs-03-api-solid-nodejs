@@ -2,7 +2,8 @@ import request from 'supertest'
 import { app } from '@/app'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { createAndAuthenticateUser } from '@/utils/test/create-and-authenticate-user'
-import { prisma } from '@/lib/prisma'
+import { db } from '@/lib/drizzle/connection'
+import { checkIns, gyms } from '@/lib/drizzle/schema'
 
 describe('Check-in Metrics (e2e)', () => {
   beforeAll(async () => {
@@ -16,18 +17,24 @@ describe('Check-in Metrics (e2e)', () => {
   it('should be able to get the total count of check-ins', async () => {
     const { token } = await createAndAuthenticateUser(app)
 
-    const user = await prisma.user.findFirstOrThrow()
+    const user = await db.query.users.findFirst()
 
-    const gym = await prisma.gym.create({
-      data: {
+    if (!user) {
+      throw new Error('User not found')
+    }
+
+    const [gym] = await db
+      .insert(gyms)
+      .values({
         title: 'JavaScript Gym',
         latitude: -27.2092052,
         longitude: -49.6401091,
-      },
-    })
+      })
+      .returning()
 
-    await prisma.checkIn.createMany({
-      data: [
+    await db
+      .insert(checkIns)
+      .values([
         {
           gym_id: gym.id,
           user_id: user.id,
@@ -36,8 +43,8 @@ describe('Check-in Metrics (e2e)', () => {
           gym_id: gym.id,
           user_id: user.id,
         },
-      ],
-    })
+      ])
+      .execute()
 
     const response = await request(app.server)
       .get('/check-ins/metrics')

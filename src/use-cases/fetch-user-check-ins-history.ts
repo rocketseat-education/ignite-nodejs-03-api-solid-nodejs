@@ -1,5 +1,5 @@
 import { CheckInsRepository } from '@/repositories/check-ins-repository'
-import { CheckIn } from '@prisma/client'
+import { CheckIn } from '@/lib/drizzle/schema'
 
 interface FetchUserCheckInsHistoryUseCaseRequest {
   userId: string

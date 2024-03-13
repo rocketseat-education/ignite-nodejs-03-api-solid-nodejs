@@ -1,7 +1,8 @@
 import { CheckInsRepository } from '@/repositories/check-ins-repository'
-import { Prisma, CheckIn } from '@prisma/client'
 import dayjs from 'dayjs'
 import { randomUUID } from 'node:crypto'
+
+import { CheckIn, CheckInInsert } from '@/lib/drizzle/schema'
 
 export class InMemoryCheckInsRepository implements CheckInsRepository {
   public items: CheckIn[] = []
@@ -45,8 +46,8 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
     return this.items.filter((checkIn) => checkIn.user_id === userId).length
   }
 
-  async create(data: Prisma.CheckInUncheckedCreateInput) {
-    const checkIn = {
+  async create(data: CheckInInsert) {
+    const checkIn: CheckIn = {
       id: randomUUID(),
       user_id: data.user_id,
       gym_id: data.gym_id,

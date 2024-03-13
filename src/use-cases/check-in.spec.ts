@@ -2,7 +2,6 @@ import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-c
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 import { CheckInUseCase } from '@/use-cases/check-in'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
-import { Decimal } from '@prisma/client/runtime/library'
 import { MaxNumberOfCheckInsError } from '@/use-cases/errors/max-number-of-check-ins-error'
 import { MaxDistanceError } from '@/use-cases/errors/max-distance-error'
 
@@ -91,8 +90,8 @@ describe('Check-in Use Case', () => {
       title: 'JavaScript Gym',
       description: '',
       phone: '',
-      latitude: new Decimal(-27.0747279),
-      longitude: new Decimal(-49.4889672),
+      latitude: -27.0747279,
+      longitude: -49.4889672,
     })
 
     await expect(() =>

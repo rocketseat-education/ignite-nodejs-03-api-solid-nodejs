@@ -6,16 +6,16 @@
   "scripts": {
     "start:dev": "tsx watch src/server.ts",
     "start": "node build/server.js",
-    "test:create-prisma-environment": "npm link ./prisma/vitest-environment-prisma",
-    "test:install-prisma-environment": "npm link vitest-environment-prisma",
     "build": "tsup src --out-dir build",
     "test": "vitest run --dir src/use-cases",
     "test:watch": "vitest --dir src/use-cases",
-    "pretest:e2e": "run-s test:create-prisma-environment test:install-prisma-environment",
     "test:e2e": "vitest run --dir src/http",
     "test:e2e:watch": "vitest --dir src/http",
     "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "db:studio": "drizzle-kit studio",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:migrate": "tsx ./src/lib/drizzle/migrate.ts"
   },
   "keywords": [],
   "author": "",
@@ -25,26 +25,26 @@
     "@types/bcryptjs": "2.4.2",
     "@types/node": "18.14.1",
     "@types/supertest": "2.0.12",
-    "@vitest/coverage-c8": "0.28.5",
-    "@vitest/ui": "0.28.5",
-    "eslint": "8.34.0",
-    "npm-run-all": "4.1.5",
-    "prisma": "4.10.1",
+    "@vitest/ui": "1.3.1",
+    "drizzle-kit": "0.20.14",
+    "eslint": "8.57.0",
+    "eslint-plugin-drizzle": "0.2.3",
     "supertest": "6.3.3",
-    "tsup": "6.6.3",
+    "tsup": "8.0.2",
     "tsx": "3.12.3",
-    "typescript": "4.9.5",
-    "vite-tsconfig-paths": "4.0.5",
-    "vitest": "0.28.5"
+    "typescript": "5.4.2",
+    "vite-tsconfig-paths": "4.3.1",
+    "vitest": "1.3.1"
   },
   "dependencies": {
     "@fastify/cookie": "8.3.0",
     "@fastify/jwt": "6.7.0",
-    "@prisma/client": "4.10.1",
     "bcryptjs": "2.4.3",
     "dayjs": "1.11.7",
     "dotenv": "16.0.3",
+    "drizzle-orm": "0.30.1",
     "fastify": "4.13.0",
+    "postgres": "3.4.3",
     "zod": "3.20.6"
   }
 }

@@ -1,5 +1,5 @@
 import { UsersRepository } from '@/repositories/users-repository'
-import { User } from '@prisma/client'
+import { User } from '@/lib/drizzle/schema'
 import { ResourceNotFoundError } from '@/use-cases/errors/resource-not-found-error'
 
 interface GetUserProfileUseCaseRequest {
