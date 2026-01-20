@@ -1,5 +1,5 @@
 import { CheckInsRepository } from '@/repositories/check-ins-repository'
-import { CheckIn } from '@prisma/client'
+import { CheckIn } from 'prisma/generated/prisma/client'
 
 interface FetchUserCheckInsHistoryUseCaseRequest {
   userId: string

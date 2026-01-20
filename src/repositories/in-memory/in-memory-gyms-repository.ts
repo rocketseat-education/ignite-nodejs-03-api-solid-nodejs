@@ -3,7 +3,7 @@ import {
   GymsRepository,
 } from '@/repositories/gyms-repository'
 import { getDistanceBetweenCoordinates } from '@/utils/get-distance-between-coordinates'
-import { Gym, Prisma } from '@prisma/client'
+import { Gym, Prisma } from 'prisma/generated/prisma/client'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryGymsRepository implements GymsRepository {
