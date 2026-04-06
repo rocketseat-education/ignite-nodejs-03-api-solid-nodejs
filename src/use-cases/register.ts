@@ -45,14 +45,9 @@ export class RegisterUseCase {
       password_hash,
     })
 
-    const userWithoutPassword = {
-      id: newUser.id,
-      name: newUser.name,
-      email: newUser.email,
-      created_at: newUser.created_at,
-    }
+    
 
-    return userWithoutPassword;
+    return { user: newUser };
   }
 }
 
