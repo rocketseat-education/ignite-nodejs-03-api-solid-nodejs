@@ -1,5 +1,4 @@
 import { Prisma, User } from "@prisma/client";
-import { PrismaUsersRepository } from "./prisma/prisma-users-repository";
 
 export interface CreateUserDTO {
     id?: string
