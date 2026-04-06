@@ -33,7 +33,7 @@ describe('Get User Profile Use Case', () => {
     })
 
     test('It should not be able to get user profile with invalid ID', async () => {
-        expect(async () => {
+        await expect(async () => {
             await sut.execute({
                 userId: 'invalid-user-id'
             })
