@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "ignoreDeprecations": "6.0", // THAT OPTION SILENCE BASEURL ERROR
     /* Visit https://aka.ms/tsconfig to read more about this file */
 
     /* Projects */
