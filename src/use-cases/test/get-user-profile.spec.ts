@@ -1,10 +1,8 @@
 import { describe, test, expect, beforeEach } from 'vitest'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
-import { AuthenticateUseCase } from './authenticate'
 import { hash } from 'bcryptjs'
-import { InvalidCredentialsError } from './errors/invalid-credentials-error'
-import { GetUserProfileUseCase } from './get-user-profile'
-import { ResourceNotFound } from './errors/resource-not-found'
+import { GetUserProfileUseCase } from '../get-user-profile'
+import { ResourceNotFound } from '../errors/resource-not-found'
 
 describe('Get User Profile Use Case', () => {
     let usersRepositoy: InMemoryUsersRepository

@@ -1,9 +1,8 @@
 import { describe, test, expect, beforeEach } from 'vitest'
-import { RegisterUseCase } from './register'
-import { PrismaUsersRepository } from '@/repositories/prisma/prisma-users-repository'
+import { RegisterUseCase } from '../register'
 import { compare } from 'bcryptjs'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
-import { UserAlreadyExistError } from './errors/user-already-exist'
+import { UserAlreadyExistError } from '../errors/user-already-exist'
 
 describe('Register Use Case', () => {
     let userRepository: InMemoryUsersRepository
