@@ -1,6 +1,6 @@
 import { UsersRepository } from '@/repositories/users-repository'
 import { hash } from 'bcryptjs'
-import { UserAlreadyExistError } from './errors/user-already-exist'
+import { UserAlreadyExistError } from './errors/user-already-exist-error'
 import { Gym } from '@prisma/client'
 import { GymsRepository } from '@/repositories/gyms-repository'
 import { randomUUID } from 'node:crypto'

@@ -4,7 +4,7 @@ import { compare } from "bcryptjs";
 import { CheckIn } from "@prisma/client";
 import { CheckInsRepository } from "@/repositories/check-ins-repository";
 import { GymsRepository } from "@/repositories/gyms-repository";
-import { ResourceNotFound } from "./errors/resource-not-found";
+import { ResourceNotFound } from "./errors/resource-not-found-error";
 import { getDistanceBetweenCoordinates } from "@/http/utils/get-distance-between-coordinates";
 import { MaxNumberOfCheckInsError } from "./errors/max-number-of-check-ins-error";
 import { MaxDistanceError } from "./errors/max-distance-error";

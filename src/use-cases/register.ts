@@ -1,6 +1,6 @@
 import { UsersRepository } from '@/repositories/users-repository'
 import { hash } from 'bcryptjs'
-import { UserAlreadyExistError } from './errors/user-already-exist'
+import { UserAlreadyExistError } from './errors/user-already-exist-error'
 
 // Abaixo tem uma interface, a interface é SÓ o contrato "O que o tipo 'RegisterUseCaseRequest' deve conter?""
 // A função mais a baixo 'registerUseCase' recebe a implementação dessa interface, ou seja, recebe um objeto que precisa conter aquelas infos
