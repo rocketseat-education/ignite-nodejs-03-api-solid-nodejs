@@ -9,6 +9,7 @@ import { getDistanceBetweenCoordinates } from "@/http/utils/get-distance-between
 import { MaxNumberOfCheckInsError } from "./errors/max-number-of-check-ins-error";
 import { MaxDistanceError } from "./errors/max-distance-error";
 import dayjs from "dayjs";
+import { LateCheckInValidateError } from "./errors/late-check-in-validate-error";
 
 // Sempre bom esperar tipagem de entrada e saida
 
@@ -39,7 +40,7 @@ export class ValidateCheckInCase {
         )
 
         if(distanceInMinutesFromCheckInCreation > 20){
-            throw new Error()
+            throw new LateCheckInValidateError()
         }
 
         checkIn.validated_at = new Date()
