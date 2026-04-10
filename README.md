@@ -31,5 +31,3 @@ GymPass style app.
 - [x] Todas listas de dados precisam estar paginadas com 20 itens por página;
 - [ ] O usuário deve ser identificado por um JWT (JSON Web Token);
 
-
-//TDD UTIL EM FUNCIONALIDADES JA EXISTEMTES MAS QUE ADICIONAR COISAS NOVAS
