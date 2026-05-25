@@ -5,7 +5,7 @@ on: [push]
 jobs:
   run-unit-tests:
     name: Run Unit Tests
-    runs-on: unbuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v6
@@ -13,7 +13,7 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
-          cache: 'npm'
+          cache: npm
 
       - run: npm ci
 
