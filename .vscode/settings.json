@@ -1,0 +1,9 @@
+{
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": false,
+    "markdown": false
+  },
+  "github.copilot.chat.enabled": false,
+  "copilot.enable": false
+}
