@@ -2,7 +2,7 @@ import { describe, test, expect, beforeEach, vi, afterEach } from 'vitest'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
 import { CheckInUseCase } from '../check-in'
 import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
-import { Decimal } from '@prisma/client/runtime'
+import { Decimal } from '@prisma/client/runtime/library'
 
 describe('CheckIn Use Case', () => {
     let checkInsRepository: InMemoryCheckInsRepository

@@ -1,8 +1,5 @@
-import { describe, test, expect, beforeEach, vi, afterEach } from 'vitest'
+import { describe, test, expect, beforeEach } from 'vitest'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
-import { CheckInUseCase } from '../check-in'
-import { InMemoryGymsRepository } from '@/repositories/in-memory/in-memory-gyms-repository'
-import { Decimal } from '@prisma/client/runtime'
 import { FetchMembersCheckInsHistoryUseCase } from '../fetch-members-check-ins-history'
 
 describe('Fetch Members Check-In History Use Case', () => {
@@ -12,10 +9,6 @@ describe('Fetch Members Check-In History Use Case', () => {
     beforeEach(async () => {
         checkInsRepository = new InMemoryCheckInsRepository()
         sut = new FetchMembersCheckInsHistoryUseCase(checkInsRepository)
-
-    })
-
-    afterEach(() => {
     })
 
     test('It should be able to fetch check-in history', async () => {

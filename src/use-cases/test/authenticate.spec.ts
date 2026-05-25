@@ -7,7 +7,7 @@ import { InvalidCredentialsError } from '../errors/invalid-credentials-error'
 describe('Authenticate Use Case', () => {
     let usersRepositoy: InMemoryUsersRepository
     let sut: AuthenticateUseCase
-    
+
     beforeEach(() => {
         usersRepositoy = new InMemoryUsersRepository()
         sut = new AuthenticateUseCase(usersRepositoy)
@@ -53,5 +53,4 @@ describe('Authenticate Use Case', () => {
             })
         }).rejects.toBeInstanceOf(InvalidCredentialsError)
     })
-}
-)
+})
